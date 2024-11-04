@@ -13,7 +13,7 @@ int main() {
     for(int i = 2; i > 0; i = proxNaoMarcado(v, i)) {
         marcaMultiplos(v, i);
     }
-    imprimeNaoMarcados(v);
+    // imprimeNaoMarcados(v);
     desalocaVet(v);
 
     clock_t fim = clock();
