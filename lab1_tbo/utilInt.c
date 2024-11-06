@@ -23,7 +23,7 @@ vetAux* criaVet(int n) { // n = final do intervalo
 
 void marcaMultiplos(vetAux* v, int n) {
     int fim = v->size + 1;
-    for(int i = (n + 1); i <= fim; i++) {
+    for(int i = n*n; i <= fim; i+=n) {
         if(i % n == 0)
             v->vet[i - 2] = 1;
     }

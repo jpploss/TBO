@@ -8,7 +8,7 @@
 int main() {
     clock_t inicio = clock();
 
-    int n = 330;
+    int n = 10000;
     vetAux* v = criaVet(n);
     for(int i = 2; i > 0; i = proxNaoMarcado(v, i)) {
         marcaMultiplos(v, i);
@@ -18,7 +18,7 @@ int main() {
 
     clock_t fim = clock();
     double tempoTotal = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
-    printf("Elapsed time: %f seconds\n", tempoTotal);
+    printf("Tempo decorrido para n = %d: %f seconds\n", n, tempoTotal);
 
     return 0;
 }
