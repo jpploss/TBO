@@ -1,48 +1,65 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "pilha.h"
 
-double fazOperacao(char op, double n1, double n2) {
-    if(op == '*') return n1*n2;
-    if(op == '+') return n1+n2;
-    if(op == '-') return n1-n2;
-    if(op == '/') return n1/n2;
+// n1 <op> n2
+double fazOperacao(char op, double n1, double n2) {    
+    if(op == '*') return n1 * n2;
+    if(op == '+') return n1 + n2;
+    if(op == '-') return n1 - n2;
+    if(op == '/') return n1 / n2;
 }
 
 int main() {
-    char operadorLido, operador;
-    double operandoLido;
-    double operando1, operando2;
-    double resultado;
+    char expressao[101];
+    scanf("%[^\n]", expressao);
+    char* expressaoSeparada = strtok(expressao, " ");
 
-    pilha* pilhaOperadores = criaPilha();
-    pilha* pilhaOperandos = criaPilha();
+    pilha* pilhaNumeros = criaPilha();
+    pilha* pilhaOperacoes = criaPilha();
+    char operacaoLida;
+    double numeroLido;
+    double* nHeap;
+    char* oHeap;
 
-    while(1) {
-        if(scanf("%lf", &operandoLido)) {
-            empilhaItem(pilhaOperandos, (void*)&operandoLido);
+    while(expressaoSeparada) {
+        if(sscanf(expressaoSeparada, "%lf", &numeroLido)) {
+            nHeap = malloc(sizeof(double));
+            *nHeap = numeroLido;
+            empilhaItem(pilhaNumeros, (void*)nHeap);
         } 
-        
-        else if(scanf("%c", &operadorLido)) {
-            if(operadorLido == '.') break;
-            else if(operadorLido == '(') continue;
+        else {
+            sscanf(expressaoSeparada, "%c", &operacaoLida);
 
-            else if(operadorLido == ')') {
-                operador = *((char*)desempilhaItem(pilhaOperadores));
-                printf("-- %c\n", operador);
-                operando1 = *((double*)desempilhaItem(pilhaOperandos));
-                printf("-- %lf\n", operando1);
-                operando2 = *((double*)desempilhaItem(pilhaOperandos));
-                printf("-- %lf\n", operando2);
+            if(operacaoLida == ')') {
+                double* n1 = (double*)desempilhaItem(pilhaNumeros);
+                double* n2 = (double*)desempilhaItem(pilhaNumeros);
+                char* operacao = (char*)desempilhaItem(pilhaOperacoes);
 
-                resultado = fazOperacao(operador, operando2, operando1);
-                printf("-- %lf\n", resultado);
-                empilhaItem(pilhaOperandos, (void*)&resultado);
-            }
+                nHeap = malloc(sizeof(double));
+                *nHeap = fazOperacao(*operacao, *n2, *n1);
+                empilhaItem(pilhaNumeros, nHeap);
+
+                free(n1);
+                free(n2);
+                free(operacao);
+            } 
             
-            else empilhaItem(pilhaOperadores, (void*)&operadorLido);   
+            else if(operacaoLida != '('){
+                oHeap = malloc(sizeof(char));
+                *oHeap = operacaoLida;
+                empilhaItem(pilhaOperacoes, oHeap);
+            }
         }
+        expressaoSeparada = strtok(NULL, " ");
     }
-    printf("%lf\n", *((double*)desempilhaItem(pilhaOperandos)));
+    
+    double* resultado = (double*) desempilhaItem(pilhaNumeros);
+    printf("Resultado: %.02lf\n", *resultado);
+    free(resultado);
+    free(pilhaNumeros);
+    free(pilhaOperacoes); 
 
-    return 1;
+    return 0;
 }

@@ -47,6 +47,7 @@ void* desempilhaItem(pilha* p) {
     node* noASerRemovido = p->ult;
     p->ult = p->ult->ant;
     if(p->ult) p->ult->prox = NULL;
+    else p->prim = NULL; // pilha foi esvaziada
 
     free(noASerRemovido);
 
