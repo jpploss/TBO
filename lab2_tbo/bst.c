@@ -52,3 +52,31 @@ void destroiBST(bst* b) {
     destroiBST(b->menor);
     free(b);
 }
+
+void visita(bst* b) {
+    printf("%c\n", ((char)b->chave - 1) + 'A');
+}
+
+void preOrdem(bst* b, void (*vista)(bst*)) {
+    if(b == NULL) return;
+
+    vista(b);
+    preOrdem(b->menor, visita);
+    preOrdem(b->maior, visita);
+}
+
+void emOrdem(bst* b, void (*vista)(bst*)) {
+    if(b == NULL) return;
+
+    emOrdem(b->menor, visita);
+    vista(b);
+    emOrdem(b->maior, visita);
+}
+
+void posOrdem(bst* b, void (*vista)(bst*)) {
+    if(b == NULL) return;
+
+    posOrdem(b->menor, visita);
+    posOrdem(b->maior, visita);
+    vista(b);
+}
