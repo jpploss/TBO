@@ -11,6 +11,10 @@ pilhaBST* criaPilhaBST() {
     return calloc(1, sizeof(pilhaBST));
 }
 
+int vaziaPilhaBST(pilhaBST* p) {
+    return !(p->topo);
+}
+
 void push(pilhaBST* p, bst* node) {
     if(p->topo == TAM) {
         printf("Pilha cheia.\n");
@@ -29,6 +33,14 @@ bst* pop(pilhaBST* p) {
 
     p->topo -= 1;
     return p->pilha[p->topo];
+}
+
+bst* retornaTopo(pilhaBST* p) {
+    if(p->topo == 0) {
+        printf("Pilha vazia.\n");
+        return NULL;
+    }
+    return p->pilha[p->topo - 1];
 }
 
 void destroiPilhaBST(pilhaBST* p) {

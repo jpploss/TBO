@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "bst.h"
+#include "pilhaBST.h"
+
 
 struct _bst {
     int chave;
@@ -65,6 +67,23 @@ void preOrdem(bst* b, void (*vista)(bst*)) {
     preOrdem(b->maior, visita);
 }
 
+void semRecPreOrdem(bst* b, void (*vista)(bst*)) {
+    if(b == NULL) return;
+
+    pilhaBST* p = criaPilhaBST();
+    bst* node = b;
+    push(p, node);
+    while(!vaziaPilhaBST(p)) {
+        node = pop(p);
+        visita(node);
+
+        if(node->maior) push(p, node->maior);
+        if(node->menor) push(p, node->menor);
+    }
+
+    destroiPilhaBST(p);
+}
+
 void emOrdem(bst* b, void (*vista)(bst*)) {
     if(b == NULL) return;
 
@@ -73,10 +92,54 @@ void emOrdem(bst* b, void (*vista)(bst*)) {
     emOrdem(b->maior, visita);
 }
 
+void semRecEmOrdem(bst* b, void (*vista)(bst*)) {
+    if(b == NULL) return;
+
+    pilhaBST* p = criaPilhaBST();
+    bst* node = b;
+
+    while(!vaziaPilhaBST(p) || node != NULL) {
+        if(node == NULL) {
+            node = pop(p);
+            visita(node);
+            node = node->maior;
+        } else {
+            push(p, node);
+            node = node->menor;
+        }
+    }
+
+    destroiPilhaBST(p);
+}
+
 void posOrdem(bst* b, void (*vista)(bst*)) {
     if(b == NULL) return;
 
     posOrdem(b->menor, visita);
     posOrdem(b->maior, visita);
     vista(b);
+}
+
+void semRecPosOrdem(bst* b, void (*vista)(bst*)) {
+    if(b == NULL) return;
+
+    pilhaBST* p = criaPilhaBST();
+    bst* node = b;
+    bst* ultimoVisitado = NULL;
+    while (!vaziaPilhaBST(p) || node != NULL) {
+        if(node != NULL) {
+            push(p, node);
+            node = node->menor;
+        } else {
+            bst* topo = retornaTopo(p);
+            if(topo->maior && ultimoVisitado != topo->maior) node = topo->maior;
+            else {
+                ultimoVisitado = pop(p);
+                visita(ultimoVisitado);
+                node = NULL;
+            }           
+        }
+    }
+    
+    destroiPilhaBST(p);
 }

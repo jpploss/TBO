@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include "bst.h"
 #include <time.h>
 #include <stdlib.h>
+#include "bst.h"
+#include "pilhaBST.h"
 
 // https://docs.google.com/document/d/11JgrQxJ9loAbhdFQNmkOK7vhNXFqfaXMsP5oQEkYDcc/edit?tab=t.0?
 
@@ -35,9 +36,15 @@ int main() {
     b = insereBST(b, 9);
     b = insereBST(b, 8);
 
+    
+
     // preOrdem(b, visita);
     // emOrdem(b, visita);
-    posOrdem(b, visita);
+    // posOrdem(b, visita);
+
+    // semRecPreOrdem(b, visita);
+    // semRecEmOrdem(b, visita);
+    semRecPosOrdem(b, visita);
 // -----
 
     // printf("\naltura: %d\n", alturaBST(b));
