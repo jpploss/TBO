@@ -56,7 +56,8 @@ void destroiBST(bst* b) {
 }
 
 void visita(bst* b) {
-    printf("%c\n", ((char)b->chave - 1) + 'A');
+    // printf("%c\n", ((char)b->chave - 1) + 'A');
+    return;
 }
 
 void preOrdem(bst* b, void (*vista)(bst*)) {

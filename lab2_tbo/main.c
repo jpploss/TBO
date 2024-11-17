@@ -26,15 +26,15 @@ int main() {
 // -----
 
 // ----- PARA A PARTE 3 DO LAB:
-    b = insereBST(b, 6);
-    b = insereBST(b, 7);
-    b = insereBST(b, 2);
-    b = insereBST(b, 1);
-    b = insereBST(b, 4);
-    b = insereBST(b, 3);
-    b = insereBST(b, 5);
-    b = insereBST(b, 9);
-    b = insereBST(b, 8);
+    // b = insereBST(b, 6);
+    // b = insereBST(b, 7);
+    // b = insereBST(b, 2);
+    // b = insereBST(b, 1);
+    // b = insereBST(b, 4);
+    // b = insereBST(b, 3);
+    // b = insereBST(b, 5);
+    // b = insereBST(b, 9);
+    // b = insereBST(b, 8);
 
     
 
@@ -44,7 +44,30 @@ int main() {
 
     // semRecPreOrdem(b, visita);
     // semRecEmOrdem(b, visita);
+    // semRecPosOrdem(b, visita);
+// -----
+
+// ----- PARTE 4 DO LAB:
+    clock_t inicio = clock();
+    
+    srand(time(NULL));
+    for(int i = 0; i < 10000000; i++) {
+        b = insereBST(b, rand());
+    }
+
+    // preOrdem(b, visita);
+    // semRecPreOrdem(b, visita);
+
+    // emOrdem(b, visita);
+    // semRecEmOrdem(b, visita);
+    
+    // posOrdem(b, visita);
     semRecPosOrdem(b, visita);
+
+    clock_t fim = clock();
+    double tempoTotal = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("Tempo decorrido para n = 10.000.000: %f seconds\n", tempoTotal);
+
 // -----
 
     // printf("\naltura: %d\n", alturaBST(b));
