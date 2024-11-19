@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "bst.h"
 #include "pilhaBST.h"
+#include "filaBST.h"
 
 
 struct _bst {
@@ -56,7 +57,7 @@ void destroiBST(bst* b) {
 }
 
 void visita(bst* b) {
-    // printf("%c\n", ((char)b->chave - 1) + 'A');
+    printf("%c\n", ((char)b->chave - 1) + 'A');
     return;
 }
 
@@ -143,4 +144,21 @@ void semRecPosOrdem(bst* b, void (*vista)(bst*)) {
     }
     
     destroiPilhaBST(p);
+}
+
+void semRecEmNivel(bst* b, void (*vista)(bst*)) {
+    filaBST* f = criaFilaBST();
+
+    bst* nodeAtual = b;
+    enqueue(f, nodeAtual);
+
+    while (!vazia(f)) {
+        nodeAtual = dequeue(f);
+        if(nodeAtual->menor) enqueue(f, nodeAtual->menor);
+        if(nodeAtual->maior) enqueue(f, nodeAtual->maior);
+
+        visita(nodeAtual);
+    }
+    
+    destroiFilaBST(f);
 }

@@ -22,4 +22,6 @@ void semRecEmOrdem(bst* b, void (*vista)(bst*));
 void posOrdem(bst* b, void (*vista)(bst*));
 void semRecPosOrdem(bst* b, void (*vista)(bst*));
 
+void semRecEmNivel(bst* b, void (*vista)(bst*));
+
 #endif
