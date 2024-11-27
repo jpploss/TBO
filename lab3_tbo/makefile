@@ -11,4 +11,4 @@ shakerSort:
 	gcc main.c shakerSort.c -o prog
 
 run:
-	valgrind ./prog $(N)
+	valgrind ./prog $(N) < $(ARQ)
