@@ -4,7 +4,7 @@
 void sort(Item *a, int lo, int hi) {
     if(hi - lo <= 0) return;
 
-    printf("\nRodando selection sort.\n");
+    printf("Rodando selection sort.\n");
 
     for(int i = lo; i < hi-1; i++) {
         int idxMenor = i;

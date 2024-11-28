@@ -4,7 +4,7 @@
 void sort(Item *a, int lo, int hi) {
     if(hi - lo <= 0) return;
 
-    printf("\nRodando insertion sort.\n");
+    printf("Rodando insertion sort.\n");
 
     for(int i = lo+1; i < hi; i++) {
         for(int j = i; j > lo; j--) {

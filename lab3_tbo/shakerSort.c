@@ -10,7 +10,7 @@ em particular por fazer melhor uso da localidade de cache.
 void sort(Item *a, int lo, int hi) {
     if(hi - lo <= 0) return;
 
-    printf("\nRodando shaker sort.\n");
+    printf("Rodando shaker sort.\n");
 
     for(int i = lo; i < hi/2; i++) { // como a ordenação acontece nos dois sentidos, ir até a metade é suficiente
         
