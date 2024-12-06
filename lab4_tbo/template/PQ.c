@@ -97,6 +97,9 @@ void PQ_insert(PQ *pq, Event *e) {
     
 }
 
+static void heapfy(PQ* pq, int idx) {
+    
+}
 /*
  * Remove e retorna o evento mais próximo.
  */
@@ -111,23 +114,26 @@ Event* PQ_delmin(PQ *pq) {
     Event* min = pq->events[0];
     pq->currSz -= 1;
 
+    pq->events[0] = pq->events[pq->currSz];
+
     int id = 0;
-    while(id != pq->currSz) { // enquanto o evento retirado não estiver no final (posição livre)
+    while(id < pq->currSz) { // enquanto o evento retirado não estiver no final (posição livre)
         int lft_son = idxLeftSon(id);
         int rgt_son = idxRightSon(id);
-        Event* temp = pq->events[id];
+        int smallest = id;
 
-        if(compare(pq->events[lft_son], pq->events[rgt_son]) < 0) {
-            pq->events[id] = pq->events[lft_son];
-            pq->events[lft_son] = temp;
-            id = lft_son;
-        } else {
-            pq->events[id] = pq->events[rgt_son];
-            pq->events[rgt_son] = temp;
-            id = rgt_son;
+        if( (compare(pq->events[lft_son], pq->events[smallest]) < 0) && (lft_son < pq->currSz) ) {
+            smallest = lft_son;
         }
+        if( (compare(pq->events[rgt_son], pq->events[smallest]) < 0) && (rgt_son < pq->currSz) ) {
+            smallest = rgt_son;
+        } 
+        
+        if(id == smallest) break;
 
-
+        Event* temp = pq->events[smallest];
+        pq->events[smallest] = pq->events[id];
+        pq->events[id] = temp;
     }
 }
 
