@@ -18,7 +18,7 @@ static double t;
 static double limit;
 // Vetor de partículas.
 static Particle* *particles;
-// Quantidade de partículas.
+// Quantidade de partícula  s.
 static int N;
 // Indicador se uma interface gráfica está em uso.
 static bool use_gui;
@@ -107,11 +107,19 @@ void predict(Particle *p) {
     //       Faça os seguintes passos nessa função.
 
     // - Se p é nulo, retorne imediatamente.
+    if(p == NULL) return;
 
     // - Calcule o tempo de colisão de 'p' com todas as partículas do vetor
     //   de partículas usando a função 'time_to_hit'. Se a colisão vai ocorrer
     //   dentro do limite de tempo da simulação (variável global 'limit'), crie
     //   um evento e insira-o na fila.
+    for(int i = 0; i < N; i++) {
+        double t_hit = time_to_hit(p, particles[i]);
+        if(t_hit <= limit) {
+            Event* e = create_event(t_hit, p, particles[i]);
+            PQ_insert(pq, e);
+        }
+    }
 
     // - Calcule o tempo de colisão de 'p' com a parede vertical utilizando a
     //   função 'time_to_hit_vertical_wall'. Se a colisão vai ocorrer
@@ -120,6 +128,12 @@ void predict(Particle *p) {
     //   função 'create_event' em 'event.h', um evento de colisão com uma
     //   parece vertical é criado passando-se a SEGUNDA partícula para a função
     //   como nula.
+    double t_v_wall = time_to_hit_vertical_wall(p);
+    if(t_v_wall <= limit) {
+        Event* e = create_event(t_v_wall, p, NULL);
+        PQ_insert(pq, e);
+    }
+
 
     // - Calcule o tempo de colisão de 'p' com a parede horizontal utilizando a
     //   função 'time_to_hit_horizontal_wall'. Se a colisão vai ocorrer
@@ -128,6 +142,11 @@ void predict(Particle *p) {
     //   função 'create_event' em 'event.h', um evento de colisão com uma
     //   parece vertical é criado passando-se a PRIMEIRA partícula para a função
     //   como nula.
+    double t_h_wall = time_to_hit_vertical_wall(p);
+    if(t_h_wall <= limit) {
+        Event* e = create_event(t_h_wall, NULL, p);
+        PQ_insert(pq, e);
+    }
 }
 
 /*
@@ -170,24 +189,51 @@ void simulate() {
     //       Repita os seguintes passos enquanto a fila de eventos não estiver
     //       vazia e o tempo de simulação (variável global 't') não ultrapassar
     //       o limite de tempo (variável global 'limit').
+    while( !PQ_is_empty(pq) && t <= limit ) {
+        // - Retire o primeiro evento da fila. Se ele não for válido descarte-o.
+        //   (Lembre de liberar a memória do evento.)
+        Event* e = PQ_delmin(pq);
+        if( !is_valid(e) ) destroy_event(e);
+        else {
+            // - Se o evento for válido, avançe o tempo da simulação para o tempo do
+            //   evento. Percorra todo o vetor de partículas atualizando a posição das
+            //   partículas através da função 'move_particle'. O parâmetro 'dt' dessa
+            //   função é a diferença de tempo entre o valor de 't' antigo e o tempo
+            //   do evento.
+            double old_t = t;
+            t = get_time(e);
 
-    // - Retire o primeiro evento da fila. Se ele não for válido descarte-o.
-    //   (Lembre de liberar a memória do evento.)
+            for(int i = 0; i < N; i++) {
+                move_particle(particles[i], (old_t - t));
+            }
 
-    // - Se o evento for válido, avançe o tempo da simulação para o tempo do
-    //   evento. Percorra todo o vetor de partículas atualizando a posição das
-    //   partículas através da função 'move_particle'. O parâmetro 'dt' dessa
-    //   função é a diferença de tempo entre o valor de 't' antigo e o tempo
-    //   do evento.
-
-    // - Processe o evento. (Veja os tipos de eventos no comentário da
-    //   função 'create_event' em 'event.h'.) Utilize as funções 'bounce_off'
-    //   para calcular a colisão da(s) partícula(s) do evento. Se o evento
-    //   for o caso especial de redesenho da tela, chame a função 'redraw()'.
-
-    // - Por fim, atualize a fila com as novas colisões envolvendo as
-    //   partículas do evento, chamando a função predict() com os argumentos
-    //   adequados.
-
+            // - Processe o evento. (Veja os tipos de eventos no comentário da
+            //   função 'create_event' em 'event.h'.) Utilize as funções 'bounce_off'
+            //   para calcular a colisão da(s) partícula(s) do evento. Se o evento
+            //   for o caso especial de redesenho da tela, chame a função 'redraw()'.
+            // - Por fim, atualize a fila com as novas colisões envolvendo as
+            //   partículas do evento, chamando a função predict() com os argumentos
+            //   adequados.
+            Particle* a = get_A(e);
+            Particle* b = get_B(e);
+            if(a == NULL) {
+                if(b == NULL) redraw();
+                else {
+                    bounce_off_horizontal_wall(b);
+                    predict(b);
+                }
+            } else {
+                if(b == NULL) {
+                    bounce_off_vertical_wall(a);
+                    predict(a);
+                }
+                else {
+                    bounce_off(a, b);
+                    predict(a);
+                    predict(b);
+                }
+            }
+        }
+    }
     printf("SIMULATION: Exiting main loop.\n");
 }

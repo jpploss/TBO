@@ -84,22 +84,22 @@ void PQ_insert(PQ *pq, Event *e) {
     pq->events[pq->currSz] = e;
     pq->currSz += 1;
 
-    int id = pq->currSz;
+    int id = pq->currSz - 1;
     int pid = idxParent(id);
     while ( compare(pq->events[id], pq->events[pid]) < 0 ) { // enquanto filho menor que o pai
         Event* temp = pq->events[id];
         pq->events[id] = pq->events[pid];
         pq->events[pid] = temp;
         id = pid;
-        int id = pq->currSz;
-        int pid = idxParent(id);
+        if(id == 0) break;
+        pid = idxParent(id);
     }
     
 }
 
-static void heapfy(PQ* pq, int idx) {
+// static void heapfy(PQ* pq, int idx) {
     
-}
+// }
 /*
  * Remove e retorna o evento mais próximo.
  */
@@ -122,12 +122,10 @@ Event* PQ_delmin(PQ *pq) {
         int rgt_son = idxRightSon(id);
         int smallest = id;
 
-        if( (compare(pq->events[lft_son], pq->events[smallest]) < 0) && (lft_son < pq->currSz) ) {
+        if( (compare(pq->events[lft_son], pq->events[smallest]) < 0) && (lft_son < pq->currSz) ) 
             smallest = lft_son;
-        }
-        if( (compare(pq->events[rgt_son], pq->events[smallest]) < 0) && (rgt_son < pq->currSz) ) {
-            smallest = rgt_son;
-        } 
+        if( (compare(pq->events[rgt_son], pq->events[smallest]) < 0) && (rgt_son < pq->currSz) ) 
+            smallest = rgt_son; 
         
         if(id == smallest) break;
 
@@ -135,6 +133,8 @@ Event* PQ_delmin(PQ *pq) {
         pq->events[smallest] = pq->events[id];
         pq->events[id] = temp;
     }
+
+    return min;
 }
 
 /*
