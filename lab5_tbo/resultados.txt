@@ -1,0 +1,138 @@
+Dentre as 7 versões, eu escolheria a 4 (merge recursivo com skip e cutoff para insertion sort), uma vez que 
+apresenta uma grande melhora quando as entradas estão ordenadas ou parcialmente ordenadas. Caso a stack seja 
+limitada, optaria pela versão 7 (semelhante à versão 4, porém não recursiva), uma vez que não utiliza recursão, 
+evitanto o empilhamento excessivo de chamadas recursivas (o que poderia exceder o limite da stack).
+
+__________Desempenho do merge na versão 1__________
+
+_____nearly_sorted:
+N = 100000: 0.004s
+N = 1000000: 0.051s
+
+_____sorted:
+N = 100000: 0.004s
+N = 1000000: 0.052s
+
+_____unif_rand:
+N = 100000: 0.015s
+N = 1000000: 0.132s
+
+_____reverse_sorted:
+N = 100000: 0.006s
+N = 1000000: 0.051s
+
+
+__________Desempenho do merge na versão 2__________
+
+_____nearly_sorted:
+N = 100000: 0.003s
+N = 1000000: 0.041s
+
+_____sorted:
+N = 100000: 0.005s
+N = 1000000: 0.039s
+
+_____unif_rand:
+N = 100000: 0.010s
+N = 1000000: 0.124s
+
+_____reverse_sorted:
+N = 100000: 0.006s
+N = 1000000: 0.047s
+
+
+__________Desempenho do merge na versão 3__________
+
+_____nearly_sorted:
+N = 100000: 0.001s
+N = 1000000: 0.010s
+
+_____sorted:
+N = 100000: 0.000s
+N = 1000000: 0.005s
+
+_____unif_rand:
+N = 100000: 0.010s
+N = 1000000: 0.134s
+
+_____reverse_sorted:
+N = 100000: 0.005s
+N = 1000000: 0.053s
+
+
+__________Desempenho do merge na versão 4__________
+
+_____nearly_sorted:
+N = 100000: 0.000s
+N = 1000000: 0.006s
+
+_____sorted:
+N = 100000: 0.000s
+N = 1000000: 0.002s
+
+_____unif_rand:
+N = 100000: 0.012s
+N = 1000000: 0.123s
+
+_____reverse_sorted:
+N = 100000: 0.004s
+N = 1000000: 0.050s
+
+
+__________Desempenho do merge na versão 5__________
+
+_____nearly_sorted:
+N = 100000: 0.005s
+N = 1000000: 0.049s
+
+_____sorted:
+N = 100000: 0.004s
+N = 1000000: 0.050s
+
+_____unif_rand:
+N = 100000: 0.010s
+N = 1000000: 0.134s
+
+_____reverse_sorted:
+N = 100000: 0.005s
+N = 1000000: 0.050s
+
+
+__________Desempenho do merge na versão 6__________
+
+_____nearly_sorted:
+N = 100000: 0.004s
+N = 1000000: 0.046s
+
+_____sorted:
+N = 100000: 0.004s
+N = 1000000: 0.043s
+
+_____unif_rand:
+N = 100000: 0.011s
+N = 1000000: 0.131s
+
+_____reverse_sorted:
+N = 100000: 0.006s
+N = 1000000: 0.051s
+
+
+__________Desempenho do merge na versão 7__________
+
+_____nearly_sorted:
+N = 100000: 0.001s
+N = 1000000: 0.010s
+
+_____sorted:
+N = 100000: 0.000s
+N = 1000000: 0.005s
+
+_____unif_rand:
+N = 100000: 0.011s
+N = 1000000: 0.133s
+
+_____reverse_sorted:
+N = 100000: 0.004s
+N = 1000000: 0.053s
+
+
