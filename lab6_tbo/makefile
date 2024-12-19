@@ -9,7 +9,7 @@ v3:
 v4:
 	gcc main.c qsortV4.c -o prog
 v5:
-	gcc main.c qsortV5.c -o prog
+	gcc main.c qsortV5.c -o prog -lm
 v6:
 	gcc main.c qsortV6.c -o prog
 v7:

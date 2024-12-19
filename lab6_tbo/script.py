@@ -4,7 +4,7 @@ import subprocess
 inputs_dir = os.listdir("./input")
 
 resultados = open("resultados.txt", "w")
-for versao in range(1, 8):
+for versao in range(1, 5):
     resultados.write(f"__________Desempenho do merge na versão {versao}__________\n")
     os.system(f"make v{versao}")
 
