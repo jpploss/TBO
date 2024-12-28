@@ -3,7 +3,7 @@
 
 // quick sort com cutoff para insertion sort
 
-#define CUTOFF 10
+#define CUTOFF 12
 
 void insertion_sort(int* vet, int lo, int hi) {
     if(hi <= lo) return;

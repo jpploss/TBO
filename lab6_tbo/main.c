@@ -22,8 +22,8 @@ int main(int argc, char* argv[]) {
     double tempoTotal = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
     printf("N = %d: %.03fs\n", tam, tempoTotal);
 
-    for(int i = 0; i < tam; i++) printf("%d ", vet[i]);
-    printf("\n");
+    // for(int i = 0; i < tam; i++) printf("%d ", vet[i]);
+    // printf("\n");
 
     free(vet);
     fclose(arq);

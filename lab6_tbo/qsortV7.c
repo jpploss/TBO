@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <sys/time.h> // For struct timeval, gettimeofday
 
-// quick sort com CUTOFF para insertion sort + pivo sendo a mediana de três valores aleatórios do vetor
+// quick sort com CUTOFF para insertion sort + pivo sendo a mediana de três valores aleatórios do vetor + shuffle
 
 #define CUTOFF 12
 
@@ -41,7 +42,18 @@ void insertion_sort(int* vet, int lo, int hi) {
     }
 }
 
-void sort(int *vet, int lo, int hi) { // [lo, hi]
+void shuffle(int *vet, int N) {
+    struct timeval tv; gettimeofday(&tv, NULL);
+    srand48(tv.tv_usec);
+    for (int i = N-1; i > 0; i--) {
+        int j = (unsigned int) (drand48()*(i+1));
+        int aux = vet[j];
+        vet[j] = vet[i];
+        vet[i] = aux;
+    }
+}
+
+void qSort(int *vet, int lo, int hi) { // [lo, hi]
     if(lo >= hi) return;
 
     if((hi - lo + 1) <= CUTOFF) { 
@@ -76,6 +88,11 @@ void sort(int *vet, int lo, int hi) { // [lo, hi]
         vet[i] = aux;
     }
 
-    sort(vet, lo, j-1);
-    sort(vet, j+1, hi);
+    qSort(vet, lo, j-1);
+    qSort(vet, j+1, hi);
+}
+
+void sort(int *vet, int lo, int hi) {
+    shuffle(vet, hi-lo+1); // Needed for performance guarantee.
+    qSort(vet, lo, hi);
 }

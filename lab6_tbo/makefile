@@ -11,6 +11,8 @@ v4:
 v5:
 	gcc main.c qsortV5.c -o prog -lm
 v6:
-	gcc main.c qsortV6.c -o prog
+	gcc main.c qsortV6.c -o prog -lm
 v7:
 	gcc main.c qsortV7.c -o prog
+3way:
+	gcc main.c qsort3way.c -o prog

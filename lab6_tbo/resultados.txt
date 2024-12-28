@@ -1,3 +1,143 @@
-__________Desempenho do merge na versão 1__________
+Versão que se destacou: 4.
+
+__________Desempenho do quick sort na versão 1__________
 
 _____nearly_sorted:
+N = 100000: 2.277s
+
+_____sorted:
+N = 100000: 2.667s
+
+_____unif_rand:
+N = 100000: 0.008s
+N = 1000000: 0.088s
+
+_____few_uniq:
+
+_____reverse_sorted:
+N = 100000: 2.682s
+
+
+__________Desempenho do quick sort na versão 2__________
+
+_____nearly_sorted:
+N = 100000: 2.290s
+
+_____sorted:
+N = 100000: 2.666s
+
+_____unif_rand:
+N = 100000: 0.007s
+N = 1000000: 0.082s
+
+_____few_uniq:
+
+_____reverse_sorted:
+N = 100000: 2.754s
+
+
+__________Desempenho do quick sort na versão 3__________
+
+_____nearly_sorted:
+N = 100000: 0.004s
+N = 1000000: 0.044s
+
+_____sorted:
+N = 100000: 0.006s
+N = 1000000: 0.041s
+
+_____unif_rand:
+N = 100000: 0.009s
+N = 1000000: 0.104s
+
+_____few_uniq:
+
+_____reverse_sorted:
+N = 100000: 0.005s
+N = 1000000: 0.040s
+
+
+__________Desempenho do quick sort na versão 4__________
+
+_____nearly_sorted:
+N = 100000: 0.002s
+N = 1000000: 0.023s
+
+_____sorted:
+N = 100000: 0.002s
+N = 1000000: 0.022s
+
+_____unif_rand:
+N = 100000: 0.007s
+N = 1000000: 0.089s
+
+_____few_uniq:
+
+_____reverse_sorted:
+N = 100000: 0.003s
+N = 1000000: 0.023s
+
+
+__________Desempenho do quick sort na versão 5__________
+
+_____nearly_sorted:
+N = 100000: 2.347s
+N = 1000000: 234.951s
+
+_____sorted:
+N = 100000: 2.705s
+N = 1000000: 272.476s
+
+_____unif_rand:
+N = 100000: 0.008s
+N = 1000000: 0.094s
+
+_____few_uniq:
+
+_____reverse_sorted:
+N = 100000: 2.847s
+N = 1000000: 271.513s
+
+
+__________Desempenho do quick sort na versão 6__________
+
+_____nearly_sorted:
+N = 100000: 0.033s
+N = 1000000: 0.925s
+
+_____sorted:
+N = 100000: 0.041s
+N = 1000000: 0.923s
+
+_____unif_rand:
+N = 100000: 0.029s
+N = 1000000: 0.792s
+
+_____few_uniq:
+
+_____reverse_sorted:
+N = 100000: 0.037s
+N = 1000000: 0.917s
+
+
+__________Desempenho do quick sort na versão 7__________
+
+_____nearly_sorted:
+N = 100000: 0.008s
+N = 1000000: 0.100s
+
+_____sorted:
+N = 100000: 0.009s
+N = 1000000: 0.100s
+
+_____unif_rand:
+N = 100000: 0.011s
+N = 1000000: 0.099s
+
+_____few_uniq:
+
+_____reverse_sorted:
+N = 100000: 0.010s
+N = 1000000: 0.102s
+
+
